@@ -1,0 +1,62 @@
+@font-face { font-family: 'Ullikummi'; src: url('UllikummiA.ttf') format('truetype'); }
+@font-face { font-family: 'Ullikummi'; src: url('UllikummiB.ttf') format('truetype'); }
+@font-face { font-family: 'Ullikummi'; src: url('UllikummiC.ttf') format('truetype'); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1b2a; color: #e0e8f0; font-family: system-ui, sans-serif;
+       max-width: 640px; margin: 0 auto; padding: 16px; }
+#hud { display:flex; align-items:center; gap:12px; margin-bottom:14px; font-size:0.9rem; }
+#xp-bar { flex:1; height:8px; background:#1e2a3a; border-radius:4px; }
+#xp-fill { height:100%; background:#f0a500; border-radius:4px; width:0%; transition:width 0.4s; }
+#module-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+.module-btn { flex:1; padding:8px; border:1px solid #2d4060; background:#1e2a3a;
+              color:#a0b4c8; border-radius:8px; cursor:pointer; font-size:0.85rem; }
+.module-btn.active { background:#f0a500; color:#0d1b2a; border-color:#f0a500; font-weight:700; }
+#exercise-area { background:#1e2a3a; border-radius:14px; padding:22px; min-height:200px; }
+#next-btn { display:block; width:100%; margin-top:14px; padding:12px;
+            background:#f0a500; color:#0d1b2a; border:none; border-radius:10px;
+            font-size:1rem; font-weight:700; cursor:pointer; }
+.vocab-cu { font-size:3rem; text-align:center; margin-bottom:6px;
+            font-family: 'Ullikummi', serif; }
+.vocab-tr { text-align:center; color:#7fb3d3; margin-bottom:4px; font-size:0.9rem; }
+.vocab-q  { text-align:center; margin:12px 0 10px; color:#a0b4c8; }
+.choices, .ex-choices { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+.choice-btn { padding:10px; background:#162030; border:1px solid #2d4060;
+              color:#e0e8f0; border-radius:8px; cursor:pointer; font-size:0.9rem; }
+.choice-btn.correct { background:#1a4a2a; border-color:#27ae60; color:#2ecc71; font-weight:700; }
+.choice-btn.wrong   { background:#4a1a1a; border-color:#c0392b; color:#e74c3c; }
+.gram-badge { display:inline-block; background:#2d4060; color:#7fb3d3;
+              border-radius:6px; padding:3px 10px; font-size:0.75rem; margin-bottom:8px; }
+.gram-form  { font-size:2.2rem; text-align:center; margin:10px 0 6px; color:#f0a500; font-weight:700; }
+.gram-example { text-align:center; color:#7fb3d3; font-size:0.85rem; margin-bottom:4px; }
+.gram-ref { font-size:0.75rem; color:#556b80; font-style:italic; margin-bottom:8px; text-align:center; }
+.ex-meta { font-size:0.75rem; color:#556b80; margin-bottom:6px; }
+.ex-tr   { font-size:1.05rem; color:#f0a500; margin-bottom:8px; line-height:1.6; }
+.gap     { background:#2d4060; padding:0 6px; border-radius:4px; }
+.gap.ok  { background:#1a4a2a; color:#2ecc71; }
+.gap.err { background:#4a1a1a; color:#e74c3c; }
+.ex-hint { font-size:0.82rem; color:#7fb3d3; margin-bottom:8px; font-style:italic; }
+.ex-q    { color:#a0b4c8; margin-bottom:8px; }
+.ex-fb   { margin-top:12px; padding:10px; border-radius:8px; font-size:0.9rem; }
+.ex-fb.correct { background:#1a4a2a; color:#2ecc71; }
+.ex-fb.wrong   { background:#4a1a1a; color:#e74c3c; }
+.order-dz { display:flex; flex-direction:column; gap:6px; margin:10px 0; }
+.order-slot { background:#162030; border:1px dashed #2d4060; border-radius:6px;
+              padding:8px 12px; color:#556b80; }
+.order-slot.filled { border-style:solid; border-color:#f0a500; color:#e0e8f0; }
+.order-cz { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.order-chip { padding:8px 14px; background:#2d4060; border:none; color:#e0e8f0;
+              border-radius:20px; cursor:pointer; font-size:0.85rem; }
+.order-chip.used { opacity:0.3; }
+.srs-bar { margin-top:18px; background:#162030; border-radius:12px;
+           padding:14px 16px; text-align:center; border:1px solid #2d4060; }
+.srs-label { color:#a0b4c8; font-size:0.85rem; margin:0 0 10px 0; }
+.srs-btn { display:inline-block; margin:0 6px; padding:8px 18px; border-radius:20px;
+           border:none; font-size:0.9rem; font-weight:600; cursor:pointer; }
+.srs-btn:disabled { opacity:0.5; cursor:default; }
+.srs-hard  { background:#c0392b; color:#fff; }
+.srs-ok    { background:#e67e22; color:#fff; }
+.srs-easy  { background:#27ae60; color:#fff; }
+.srs-selected { outline:3px solid #fff; }
+.srs-info { color:#7fb3d3; font-size:0.78rem; margin:10px 0 0 0; }
+.srs-badge { display:inline-block; background:#2d4060; color:#7fb3d3;
+             font-size:0.72rem; border-radius:8px; padding:2px 8px; margin:4px 6px 8px 0; }

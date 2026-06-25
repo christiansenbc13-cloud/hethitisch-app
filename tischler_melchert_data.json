@@ -1,0 +1,51 @@
+{
+  "tischler_vocab": [
+    {
+      "cuneiform": "𒀀𒆪",
+      "transliteration": "aku- / eku-",
+      "german": "trinken",
+      "class": "mi-Konjugation"
+    },
+    {
+      "cuneiform": "𒀝",
+      "transliteration": "ak(k)- / ek(k)-",
+      "german": "sterben",
+      "class": "ḫi-Konjugation"
+    },
+    {
+      "cuneiform": "𒀠𒉺𒀸",
+      "transliteration": "alpa-",
+      "german": "Wolke",
+      "class": "a-Stamm, commune"
+    },
+    {
+      "cuneiform": "𒀭𒈾𒀸",
+      "transliteration": "anna-",
+      "german": "Mutter",
+      "class": "a-Stamm, commune"
+    }
+  ],
+  "melchert_grammar": [
+    {
+      "topic": "mi-Konjugation vs. ḫi-Konjugation",
+      "question": "Zu welcher Konjugationsklasse gehört das Verb ak(k)- (sterben)?",
+      "options": ["ḫi-Konjugation", "mi-Konjugation", "Iterativ", "Medio-Passiv"],
+      "answer": "ḫi-Konjugation",
+      "explanation": "Bestimmte Wurzelverben wie ak(k)- folgen der ḫi-Konjugation."
+    },
+    {
+      "topic": "Nominalflexion",
+      "question": "Welcher Stamm liegt dem Wort alpa- (Wolke) zugrunde?",
+      "options": ["a-Stamm", "i-Stamm", "u-Stamm", "Konsonantenstamm"],
+      "answer": "a-Stamm",
+      "explanation": "Das Wort alpa- ist ein a-Stamm des Genus commune."
+    },
+    {
+      "topic": "Pronomina",
+      "question": "Wie lautet die enklitische Partikel für 'er, sie, es' im Nominativ Singular commune?",
+      "options": ["-aš", "-an", "-at", "-e"],
+      "answer": "-aš",
+      "explanation": "Das enklitische Personalpronomen bildet den Nominativ Singular commune auf -aš."
+    }
+  ]
+}

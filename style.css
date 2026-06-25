@@ -1,6 +1,21 @@
 @font-face { font-family: 'Ullikummi'; src: url('UllikummiA.ttf') format('truetype'); }
 @font-face { font-family: 'Ullikummi'; src: url('UllikummiB.ttf') format('truetype'); }
 @font-face { font-family: 'Ullikummi'; src: url('UllikummiC.ttf') format('truetype'); }
+
+@font-face {
+  font-family: 'Ullikummi';
+  /* Der Pfad muss exakt dem Dateinamen auf GitHub entsprechen */
+  src: url('./Ullikummi.ttf') format('truetype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Eine Klasse für alle Keilschrift-Texte erstellen */
+.keilschrift {
+  font-family: 'Ullikummi', sans-serif;
+  /* Keilschrift muss oft etwas größer gestellt werden, um lesbar zu sein */
+  font-size: 1.5rem; 
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #0d1b2a; color: #e0e8f0; font-family: system-ui, sans-serif;
        max-width: 640px; margin: 0 auto; padding: 16px; }

@@ -2,78 +2,53 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hethitisch Lernen</title>
   <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Cuneiform&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="app">
-
   <header>
     <h1>Hethitisch Lernen</h1>
     <p class="subtitle">KUB 14.14 · CTH 378</p>
     <div id="xp-bar-container">
       <span>XP: <span id="xp">0</span></span>
       <div id="xp-bar"><div id="xp-fill"></div></div>
-      <span>&#x1F525; Streak: <span id="streak-count">0</span></span>
+      <span>🔥 Streak: <span id="streak-count">0</span></span>
     </div>
   </header>
-
   <div id="action-bar">
-    <input type="file" id="file-input" accept=".js,.json">
-    <button class="action-btn" id="import-btn"
-            onclick="document.getElementById('file-input').click()">&#x2B06; Importieren</button>
-    <button class="action-btn" id="delete-btn"
-            onclick="deleteImported()">&#x1F5D1; Import löschen</button>
+    <input type="file" id="file-input" accept=".js,.json" style="display:none">
+    <button class="action-btn" id="import-btn">⬆ Importieren</button>
+    <button class="action-btn" id="delete-btn">🗑 Import löschen</button>
   </div>
-
+  <div id="stats-bar">
+    <span id="stat-total">– Vokabeln</span>
+    <span id="stat-learned">– gelernt</span>
+    <span id="stat-due">– fällig</span>
+  </div>
+  <div id="round-bar">
+    <div id="round-label">Runde <span id="round-num">0</span>/10</div>
+    <div id="round-track"><div id="round-fill"></div></div>
+    <div id="daily-label">Heute: <span id="daily-rounds">0</span> Runden 🎯</div>
+  </div>
   <nav id="module-nav">
-    <button class="module-btn active" data-mode="vocab">&#x1F0CF; Karteikarten</button>
-    <button class="module-btn" data-mode="multi">&#x2753; Multiple Choice</button>
-    <button class="module-btn" data-mode="cloze">&#x270F;&#xFE0F; Lückentext</button>
-    <button class="module-btn" data-mode="order">&#x1F522; Reihenfolge</button>
-    <button class="module-btn" data-mode="grammar">&#x1F4D0; Grammatik</button>
-  </nav>
+    <button class="module-btn active" data-mode="vocab">📖 Vokabeln</button>
+    <button class="module-btn" data-mode="cloze">✏️ Lückentext</button>
+    <button class="module-btn" data-mode="order">🔢 Reihenfolge</button>
 
+<button class="module-btn" data-mode="grammar">📐 Grammatik</button>
+  </nav>
   <main id="quiz-container">
     <div id="card">
       <div id="exercise-area"></div>
+      <button id="next-btn" style="display:none">Weiter →</button>
     </div>
   </main>
-
-  <button id="next-btn" style="display:none">Weiter &#x2192;</button>
-
 </div>
 <script src="data.js"></script>
-<script src="srs-4.js"></script>
+<script src="srs.js"></script>
 <script src="app.js"></script>
-<script>
-var _importedExtra = [];
-document.getElementById('file-input').addEventListener('change', function(e) {
-  var file = e.target.files[0]; if (!file) return;
-  var reader = new FileReader();
-  reader.onload = function(ev) {
-    try {
-      var src = ev.target.result;
-      var m = src.match(/var\s+VOCAB\s*=\s*(\[[\s\S]*?\]);/);
-      var arr = m ? JSON.parse(m[1]) : JSON.parse(src);
-      if (Array.isArray(arr) && arr.length) {
-        _importedExtra = _importedExtra.concat(arr);
-        VOCAB = VOCAB.concat(arr);
-        alert('\u2713 ' + arr.length + ' Eintr\u00e4ge importiert.');
-      }
-    } catch(ex) { alert('Fehler: ' + ex.message); }
-    e.target.value = '';
-  };
-  reader.readAsText(file);
-});
-function deleteImported() {
-  if (!_importedExtra.length) { alert('Kein Import vorhanden.'); return; }
-  var n = _importedExtra.length;
-  VOCAB = VOCAB.filter(function(v) { return _importedExtra.indexOf(v) === -1; });
-  _importedExtra = [];
-  alert(n + ' Eintr\u00e4ge gel\u00f6scht.');
-}
-</script>
 </body>
 </html>

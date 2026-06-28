@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Hethitisch Lernen</title>
   <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Cuneiform&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -59,7 +58,8 @@ document.getElementById('file-input').addEventListener('change', function(e) {
       var m = src.match(/var\s+VOCAB\s*=\s*(\[[\s\S]*?\]);/);
       var arr = m ? JSON.parse(m[1]) : JSON.parse(src);
       if (Array.isArray(arr) && arr.length) {
-        _importedExtra = arr; VOCAB = VOCAB.concat(arr);
+        _importedExtra = _importedExtra.concat(arr);
+        VOCAB = VOCAB.concat(arr);
         alert('\u2713 ' + arr.length + ' Eintr\u00e4ge importiert.');
       }
     } catch(ex) { alert('Fehler: ' + ex.message); }

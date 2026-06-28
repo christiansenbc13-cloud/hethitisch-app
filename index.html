@@ -1,160 +1,79 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Hethitisch Lernen</title>
-
-  <!-- App-Einstellungen für iPad & iPhone -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Hethitisch">
-  <link rel="apple-touch-icon" href="image.jpg">
-
-  <!-- Ullikummi Schriften (A, B und C) lokal importieren -->
-  <style>
-    @font-face {
-      font-family: 'UllikummiA';
-      src: url('UllikummiA.ttf') format('truetype');
-    }
-    @font-face {
-      font-family: 'UllikummiB';
-      src: url('UllikummiB.ttf') format('truetype');
-    }
-    @font-face {
-      font-family: 'UllikummiC';
-      src: url('UllikummiC.ttf') format('truetype');
-    }
-
-    :root {
-      --bg: #1e1e24;
-      --card-bg: #2c2c35;
-      --text: #ffffff;
-      --primary: #4682b4;
-      --correct: #4caf50;
-      --wrong: #f44336;
-    }
-    
-    body {
-      margin: 0; padding: 0;
-      background-color: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      display: flex; justify-content: center; min-height: 100vh;
-    }
-    
-    .app-container {
-      width: 100%; max-width: 600px;
-      background-color: var(--card-bg);
-      padding: 20px; box-sizing: border-box;
-      display: flex; flex-direction: column;
-    }
-    
-    /* HUD (Punkte und Flamme) */
-    header { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.2rem; font-weight: bold; }
-    .xp-bar { flex-grow: 1; margin: 0 15px; background: #444; border-radius: 10px; overflow: hidden; height: 20px; align-self: center; }
-    .xp-fill { width: 0%; height: 100%; background: #ffd700; transition: width 0.3s; }
-    
-    /* Navigation (Die Knöpfe oben) */
-    nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-    .module-btn {
-      flex: 1 1 45%; padding: 12px;
-      background-color: #3a3a45; color: white;
-      border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;
-    }
-    .module-btn.active { background-color: var(--primary); font-weight: bold; box-shadow: 0 0 10px rgba(70,130,180,0.5); }
-    
-    /* Übungsbereich */
-    main { background: #33333d; padding: 20px; border-radius: 12px; text-align: center; flex-grow: 1; }
-    
-    /* Vokabeln & Keilschrift - Sucht Zeichen zuerst in A, dann in B, dann in C */
-    .vocab-cu { 
-      font-family: 'UllikummiA', 'UllikummiB', 'UllikummiC', serif !important; 
-      font-size: 4rem; margin-bottom: 10px; color: #ffd700; 
-    }
-    .vocab-tr { font-size: 1.5rem; color: #aaa; margin-bottom: 15px; }
-    .vocab-q { font-size: 1.2rem; margin-bottom: 20px; }
-    
-    /* Antwort-Knöpfe */
-    .choices { display: flex; flex-direction: column; gap: 10px; }
-    .choice-btn {
-      background: #444; color: white; padding: 15px;
-      border: 2px solid transparent; border-radius: 8px; font-size: 1.1rem; cursor: pointer;
-    }
-    .choice-btn.correct { background: var(--correct); border-color: #fff; }
-    .choice-btn.wrong { background: var(--wrong); opacity: 0.7; }
-    
-    /* Wiederholungs-Buttons (Schwer, Gut, Sofort) */
-    .srs-bar { margin-top: 20px; padding-top: 15px; border-top: 1px solid #555; }
-    .srs-label { margin: 0 0 10px 0; font-size: 1rem; color: #ccc; }
-    .srs-btn { padding: 10px 15px; margin: 0 5px; border: none; border-radius: 5px; cursor: pointer; color: #fff; font-weight:bold; }
-    .srs-hard { background: #d32f2f; }
-    .srs-ok { background: #f57c00; }
-    .srs-easy { background: #388e3c; }
-    .srs-selected { border: 2px solid white; transform: scale(1.1); }
-    .srs-badge { display: inline-block; background: var(--primary); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; margin: 5px; }
-    .srs-info { font-size: 0.8rem; color: #888; margin-top: 10px; }
-
-    /* Grammatik & Lückentext Styles */
-    .gram-badge { background: #9c27b0; padding: 5px 10px; border-radius: 15px; display: inline-block; margin-bottom: 15px; font-weight: bold; }
-    .gram-form { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; color: #4fc3f7; }
-    .gram-example { font-size: 1.2rem; font-style: italic; color: #ccc; }
-    .ex-meta { font-size: 0.9rem; color: #888; text-transform: uppercase; }
-    .ex-tr { font-size: 1.3rem; margin: 20px 0; line-height: 1.5; }
-    .ex-hint { font-style: italic; color: #aaa; margin-bottom: 20px; }
-    .gap { display: inline-block; min-width: 60px; border-bottom: 3px solid #fff; color: #ffd700; padding: 0 5px; font-weight: bold; }
-    .gap.err { color: var(--wrong); border-color: var(--wrong); }
-    .gap.ok { color: var(--correct); border-color: var(--correct); }
-    .ex-fb { margin-top: 15px; padding: 10px; border-radius: 8px; font-size: 1.1rem; }
-    .ex-fb.correct { background: rgba(76,175,80,0.2); border: 1px solid var(--correct); }
-    .ex-fb.wrong { background: rgba(244,67,54,0.2); border: 1px solid var(--wrong); }
-
-    /* Satzbau (Order) Styles */
-    .order-dz { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; text-align: left; }
-    .order-slot { background: #222; padding: 10px; border-radius: 6px; border: 1px dashed #555; color: #888; }
-    .order-slot.filled { background: #3a3a45; border-style: solid; color: #fff; border-color: var(--primary); }
-    .order-cz { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-    .order-chip { background: #555; padding: 10px 15px; border-radius: 20px; border: none; color: #fff; cursor: pointer; }
-    .order-chip.used { opacity: 0.3; pointer-events: none; }
-
-    /* Nächster Button */
-    #next-btn {
-      width: 100%; margin-top: 20px; padding: 15px;
-      background: #4caf50; color: white; font-size: 1.2rem; font-weight: bold;
-      border: none; border-radius: 8px; cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Cuneiform&display=swap" rel="stylesheet">
 </head>
 <body>
+<div id="app">
 
-  <div class="app-container">
-    <!-- Punktetafel -->
-    <header>
-      <div>⭐ XP: <span id="xp">0</span></div>
-      <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
-      <div>🔥 <span id="streak-count">0</span></div>
-    </header>
+  <header>
+    <h1>Hethitisch Lernen</h1>
+    <p class="subtitle">KUB 14.14 · CTH 378</p>
+    <div id="xp-bar-container">
+      <span>XP: <span id="xp">0</span></span>
+      <div id="xp-bar"><div id="xp-fill"></div></div>
+      <span>&#x1F525; Streak: <span id="streak-count">0</span></span>
+    </div>
+  </header>
 
-    <!-- Modul-Auswahl -->
-    <nav>
-      <button class="module-btn active" data-mode="vocab">📖 Vokabeln</button>
-      <button class="module-btn" data-mode="grammar">⚙️ Grammatik</button>
-      <button class="module-btn" data-mode="cloze">🧩 Lückentext</button>
-      <button class="module-btn" data-mode="order">📝 Sätze bauen</button>
-    </nav>
-
-    <!-- Hier rein lädt die app.js die jeweilige Übung -->
-    <main id="exercise-area">
-      Lädt...
-    </main>
-
-    <!-- Bestätigungs-Button -->
-    <button id="next-btn" style="display:none;">Nächste Übung ➔</button>
+  <div id="action-bar">
+    <input type="file" id="file-input" accept=".js,.json">
+    <button class="action-btn" id="import-btn"
+            onclick="document.getElementById('file-input').click()">&#x2B06; Importieren</button>
+    <button class="action-btn" id="delete-btn"
+            onclick="deleteImported()">&#x1F5D1; Import löschen</button>
   </div>
 
-  <!-- Verknüpfung zu deinen Daten und der Logik -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <nav id="module-nav">
+    <button class="module-btn active" data-mode="vocab">&#x1F0CF; Karteikarten</button>
+    <button class="module-btn" data-mode="multi">&#x2753; Multiple Choice</button>
+    <button class="module-btn" data-mode="cloze">&#x270F;&#xFE0F; Lückentext</button>
+    <button class="module-btn" data-mode="order">&#x1F522; Reihenfolge</button>
+    <button class="module-btn" data-mode="grammar">&#x1F4D0; Grammatik</button>
+  </nav>
 
+  <main id="quiz-container">
+    <div id="card">
+      <div id="exercise-area"></div>
+    </div>
+  </main>
+
+  <button id="next-btn" style="display:none">Weiter &#x2192;</button>
+
+</div>
+<script src="data.js"></script>
+<script src="srs-4.js"></script>
+<script src="app.js"></script>
+<script>
+var _importedExtra = [];
+document.getElementById('file-input').addEventListener('change', function(e) {
+  var file = e.target.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      var src = ev.target.result;
+      var m = src.match(/var\s+VOCAB\s*=\s*(\[[\s\S]*?\]);/);
+      var arr = m ? JSON.parse(m[1]) : JSON.parse(src);
+      if (Array.isArray(arr) && arr.length) {
+        _importedExtra = arr; VOCAB = VOCAB.concat(arr);
+        alert('\u2713 ' + arr.length + ' Eintr\u00e4ge importiert.');
+      }
+    } catch(ex) { alert('Fehler: ' + ex.message); }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+});
+function deleteImported() {
+  if (!_importedExtra.length) { alert('Kein Import vorhanden.'); return; }
+  var n = _importedExtra.length;
+  VOCAB = VOCAB.filter(function(v) { return _importedExtra.indexOf(v) === -1; });
+  _importedExtra = [];
+  alert(n + ' Eintr\u00e4ge gel\u00f6scht.');
+}
+</script>
 </body>
 </html>
